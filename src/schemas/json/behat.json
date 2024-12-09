@@ -68,7 +68,29 @@
           "title": "Suite contexts",
           "type": "array",
           "items": {
-            "type": ["string", "object"]
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "string",
+                                "minLength": 1,
+                                "x-intellij-language-injection": {
+                                    "language": "PHP",
+                                    "prefix": "<?php echo \\",
+                                    "suffix": "::class;"
+                                }
+                            },
+                            {
+                                "type": "object",
+                                "propertyNames": {
+                                    "x-intellij-language-injection": {            // This does not work. Would have also been useful for extensions.
+                                        "language": "PHP",
+                                        "prefix": "<?php echo \\",
+                                        "suffix": "::class;"
+                                    }
+                                }
+                            }
+                        ]
+                    }
           },
           "uniqueItems": true
         },
