@@ -124,9 +124,9 @@
       "items": {
         "type": "string",
         "x-intellij-language-injection": {
-          "language": "PHP",
-          "prefix": "<?= file(__DIR__ . '/",
-          "suffix": "') ?>"
+          "language": "HTML",
+          "prefix": "<a href='",
+          "suffix": "'></a>"
         }
       },
       "title": "Import additional configuration",
