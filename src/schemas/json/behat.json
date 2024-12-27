@@ -3,7 +3,7 @@
   "$id": "https://json.schemastore.org/behat.json",
   "additionalProperties": {
     "$ref": "#/definitions/profile",
-    "title": "Profile name"
+    "title": "Additional profile"
   },
   "definitions": {
     "profile": {
@@ -44,11 +44,17 @@
           }
         },
         "extensions": {
+          "additionalProperties": true,
+          "propertyNames": {
+            "_comment": "TODO: This does not work at the moment. See: https://youtrack.jetbrains.com/issue/WI-80158",
+            "x-intellij-language-injection": {
+              "language": "PHP",
+              "prefix": "<?= \\",
+              "suffix": "::class ?>"
+            }
+          },
           "title": "Behat extensions",
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
+          "type": "object"
         }
       }
     },
@@ -68,7 +74,29 @@
           "title": "Suite contexts",
           "type": "array",
           "items": {
-            "type": ["string", "object"]
+            "oneOf": [
+              {
+                "minLength": 1,
+                "type": "string",
+                "x-intellij-language-injection": {
+                  "language": "PHP",
+                  "prefix": "<?= \\",
+                  "suffix": "::class ?>"
+                }
+              },
+              {
+                "additionalProperties": true,
+                "propertyNames": {
+                  "_comment": "TODO: This does not work at the moment. See: https://youtrack.jetbrains.com/issue/WI-80158",
+                  "x-intellij-language-injection": {
+                    "language": "PHP",
+                    "prefix": "<?= \\",
+                    "suffix": "::class ?>"
+                  }
+                },
+                "type": "object"
+              }
+            ]
           },
           "uniqueItems": true
         },
@@ -93,10 +121,16 @@
       "title": "Default profile"
     },
     "imports": {
-      "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "x-intellij-language-injection": {
+          "language": "PHP",
+          "prefix": "<?= file(__DIR__ . '/",
+          "suffix": "') ?>"
+        }
       },
+      "title": "Import additional configuration",
+      "type": "array",
       "uniqueItems": true
     }
   },
